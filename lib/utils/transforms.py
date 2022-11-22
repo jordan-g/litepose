@@ -63,7 +63,6 @@ def get_affine_transform(center,
                          shift=np.array([0, 0], dtype=np.float32),
                          inv=0):
     if not isinstance(scale, np.ndarray) and not isinstance(scale, list):
-        print(scale)
         scale = np.array([scale, scale])
 
     scale_tmp = scale * 200.0
@@ -188,6 +187,8 @@ def resize_align_multi_scale(image, input_size, current_scale, min_scale):
         size_resized
         # (int(w_resized), int(h_resized))
     )
+    
+    # print(image_resized.shape)
 
     return image_resized, center, scale
 

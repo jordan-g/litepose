@@ -11,6 +11,7 @@ from __future__ import print_function
 
 
 import torch
+import time
 
 from dataset.transforms import FLIP_CONFIG
 
@@ -82,7 +83,10 @@ def get_multi_stage_outputs(
     heatmaps = []
     tags = []
 
+    start_time = time.time()
     outputs = model(image)
+    end_time = time.time()
+    t = end_time - start_time
     for i, output in enumerate(outputs):
         if len(outputs) > 1 and i != len(outputs) - 1:
             output = torch.nn.functional.interpolate(
@@ -170,7 +174,7 @@ def get_multi_stage_outputs(
             for tms in tags
         ]
 
-    return outputs, heatmaps, tags
+    return outputs, heatmaps, tags, t
 
 
 def aggregate_results(
